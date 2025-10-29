@@ -4,8 +4,10 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {body, validationResult} from 'express-validator';
-require('dotenv').config();
+import dotenv from 'dotenv';
 
+
+dotenv.config();
 const app = express();
 const port = process.env.PORT;
 const mongoDBURI = process.env.MONGODB_URI;
@@ -79,6 +81,8 @@ const deckSchema = new Schema<IDeck>({
     ownerId : {type : Schema.Types.ObjectId, required : true, ref : 'User'},
     cards : [cardSchema]
 });
+
+deckSchema.index({ 'cards.nextReview': 1 });
 
 
 // schema pre ->
