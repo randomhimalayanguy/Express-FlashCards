@@ -14,7 +14,10 @@ const mongoDBURI = process.env.MONGODB_URI;
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 mongoose.connect(mongoDBURI as string)
-.then(()=>console.log(`Connected to db`))
+.then(()=>{
+    console.log(`Connected to db`);
+    app.listen(port, ()=>console.log(`Server started`));
+})
 .catch((err)=>console.log(`Can't connect to db : ${err}`));
 
 
@@ -388,4 +391,3 @@ app.use((err : AppError, req : Request, res : Response, next : NextFunction)=>{
 });
 
 
-app.listen(port, ()=>console.log(`Server started on : http://localhost:${port}`));
